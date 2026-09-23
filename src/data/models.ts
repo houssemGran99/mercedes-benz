@@ -306,6 +306,17 @@ const raw: Omit<CarModel, "slug">[] = [
       "AMG's front-mid-engined sports car with a hand-built twin-turbo V8. It later spawned the GT Black Series, the GT 4-Door Coupé and a 2+2 second generation.",
   },
   {
+    name: "Mercedes-Benz V-Class",
+    code: "W447",
+    start: 2014,
+    classCode: "V",
+    end: null,
+    category: "Commercial",
+    wiki: "Mercedes-Benz Vito",
+    summary:
+      "The premium, passenger-carrying version of the Vito van, with business-class seating for up to eight. An electric EQV derivative followed later in the generation's run.",
+  },
+  {
     name: "Mercedes-Benz GLC",
     start: 2015,
     classCode: "GLC",
@@ -360,6 +371,17 @@ const raw: Omit<CarModel, "slug">[] = [
       "'The S-Class of SUVs': a seven-seat flagship, which also comes in an ultra-luxury Mercedes-Maybach GLS version.",
   },
   {
+    name: "Mercedes-Benz GLB",
+    code: "X247",
+    start: 2019,
+    classCode: "GLB",
+    end: null,
+    category: "SUV & Off-road",
+    wiki: "Mercedes-Benz GLB",
+    summary:
+      "A boxier, three-row compact SUV slotted between the GLA and GLC, styled with cues borrowed from the G-Class and GLS.",
+  },
+  {
     name: "Mercedes-AMG F1 W11 EQ Performance",
     code: "W11",
     start: 2020,
@@ -390,6 +412,17 @@ const raw: Omit<CarModel, "slug">[] = [
     wiki: "Mercedes-Benz EQS",
     summary:
       "The electric S-Class, with an extremely low drag coefficient of 0.20 and the 56-inch MBUX Hyperscreen.",
+  },
+  {
+    name: "Mercedes-Benz EQB",
+    code: "X243",
+    start: 2021,
+    classCode: "EQB",
+    end: null,
+    category: "Electric",
+    wiki: "Mercedes-Benz EQB",
+    summary:
+      "A battery-electric compact SUV on the GLB's platform, offered with front- or all-wheel drive and up to seven seats.",
   },
   {
     name: "Mercedes-Benz C-Class",
@@ -436,6 +469,17 @@ const raw: Omit<CarModel, "slug">[] = [
       "A seven-seat electric luxury SUV built in Alabama, which also comes as a Mercedes-Maybach version.",
   },
   {
+    name: "Mercedes-Benz EQE SUV",
+    code: "X294",
+    start: 2022,
+    classCode: "EQE",
+    end: null,
+    category: "Electric",
+    wiki: "Mercedes-Benz EQE SUV",
+    summary:
+      "The SUV sibling of the EQE sedan, sharing its platform and battery while adding cargo space and a raised driving position.",
+  },
+  {
     name: "Mercedes-Benz Vision EQXX",
     start: 2022,
     end: 2022,
@@ -452,6 +496,28 @@ const raw: Omit<CarModel, "slug">[] = [
     wiki: "Mercedes-AMG One",
     summary:
       "A road-legal hypercar with a real Formula One hybrid power unit. It set the production-car lap record at the Nürburgring Nordschleife.",
+  },
+  {
+    name: "Mercedes-Benz CLE",
+    code: "C236 / A236",
+    start: 2023,
+    classCode: "CLE",
+    end: null,
+    category: "Coupé & Cabriolet",
+    wiki: "Mercedes-Benz CLE",
+    summary:
+      "A coupé and cabriolet that folded the old C-Class and E-Class two-door lines into a single model, simplifying the range.",
+  },
+  {
+    name: "Mercedes-Benz G 580",
+    code: "W465",
+    start: 2024,
+    classCode: "G",
+    end: null,
+    category: "Electric",
+    wiki: "Mercedes-Benz G-Class",
+    summary:
+      "The first all-electric G-Wagen, with one motor per wheel enabling a 'G-Turn' spin on the spot, wrapped in the same boxy silhouette.",
   },
   {
     name: "Mercedes-Benz E-Class",
