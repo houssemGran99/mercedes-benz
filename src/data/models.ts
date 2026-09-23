@@ -1,5 +1,4 @@
 export type Category =
-  | "Pioneer"
   | "Sedan"
   | "Coupé & Cabriolet"
   | "Roadster"
@@ -15,6 +14,8 @@ export type CarModel = {
   name: string;
   /** Internal chassis code, when there is one. */
   code?: string;
+  /** Class letter(s) buyers actually order, e.g. "S", "CLA", "GLC" — only set for models sold under that naming scheme. */
+  classCode?: string;
   start: number;
   /** `null` = still in production. */
   end: number | null;
@@ -25,8 +26,6 @@ export type CarModel = {
 };
 
 export const ERAS = [
-  { id: "pioneers", name: "The Pioneers", from: 1885, to: 1925 },
-  { id: "pre-war", name: "Pre-War Grandeur", from: 1926, to: 1945 },
   { id: "post-war", name: "Post-War Revival", from: 1946, to: 1969 },
   { id: "engineering", name: "Engineered Like No Other", from: 1970, to: 1989 },
   { id: "expansion", name: "The Great Expansion", from: 1990, to: 2009 },
@@ -46,154 +45,6 @@ export function yearsLabel(model: Pick<CarModel, "start" | "end">) {
 }
 
 const raw: Omit<CarModel, "slug">[] = [
-  // ── The Pioneers ──────────────────────────────────────────────
-  {
-    name: "Daimler Reitwagen",
-    start: 1885,
-    end: 1885,
-    category: "Pioneer",
-    wiki: "Daimler Reitwagen",
-    summary:
-      "Gottlieb Daimler and Wilhelm Maybach's 'riding car' was the first vehicle powered by a petrol internal-combustion engine. It was a test bed for their high-speed engine.",
-  },
-  {
-    name: "Benz Patent-Motorwagen",
-    start: 1886,
-    end: 1893,
-    category: "Pioneer",
-    wiki: "Benz Patent-Motorwagen",
-    summary:
-      "Patented by Carl Benz on 29 January 1886, it is widely regarded as the world's first practical automobile. In 1888, Bertha Benz drove it 106 km to Pforzheim, the first long-distance car journey.",
-  },
-  {
-    name: "Benz Velo",
-    start: 1894,
-    end: 1902,
-    category: "Pioneer",
-    wiki: "Benz Velo",
-    summary:
-      "The first car built in series production. Over 1,200 were made, which made the Velo the best-selling car of the 1890s.",
-  },
-  {
-    name: "Mercedes 35 hp",
-    start: 1901,
-    end: 1902,
-    category: "Pioneer",
-    wiki: "Mercedes 35 hp",
-    summary:
-      "Built for Emil Jellinek and named after his daughter Mercédès. Its long wheelbase, low centre of gravity and honeycomb radiator made it the template for the modern car.",
-  },
-  {
-    name: "Mercedes Simplex",
-    start: 1902,
-    end: 1909,
-    category: "Pioneer",
-    wiki: "Mercedes Simplex",
-    summary:
-      "The successor to the 35 hp. It was fast and easy to drive for its day, which is where the name 'Simplex' came from.",
-  },
-  {
-    name: "Blitzen Benz",
-    start: 1909,
-    end: 1909,
-    category: "Racing",
-    wiki: "Blitzen Benz",
-    summary:
-      "A 21.5-litre record car. In 1911 it reached 228 km/h at Daytona Beach, faster than any aeroplane, train or car of the time.",
-  },
-
-  // ── Pre-War Grandeur ──────────────────────────────────────────
-  {
-    name: "Mercedes-Benz SSK",
-    code: "W06",
-    start: 1928,
-    end: 1932,
-    category: "Sports & Supercar",
-    wiki: "Mercedes-Benz SSK",
-    summary:
-      "Designed by Ferdinand Porsche, the supercharged 'Super Sport Kurz' was one of the fastest cars of its era and won races across Europe with drivers like Rudolf Caracciola.",
-  },
-  {
-    name: "Mercedes-Benz 770 “Großer Mercedes”",
-    code: "W07 / W150",
-    start: 1930,
-    end: 1943,
-    category: "Sedan",
-    wiki: "Mercedes-Benz 770",
-    summary:
-      "A huge, supercharged limousine built in small numbers for heads of state, royalty and industrialists.",
-  },
-  {
-    name: "Mercedes-Benz W25",
-    code: "W25",
-    start: 1934,
-    end: 1936,
-    category: "Racing",
-    wiki: "Mercedes-Benz W25",
-    summary:
-      "The first 'Silver Arrow'. According to legend, its white paint was scraped off overnight to meet the weight limit, leaving bare silver aluminium.",
-  },
-  {
-    name: "Mercedes-Benz 500K",
-    code: "W29",
-    start: 1934,
-    end: 1936,
-    category: "Coupé & Cabriolet",
-    wiki: "Mercedes-Benz 500K",
-    summary:
-      "A supercharged grand tourer with independent suspension and elegant coachwork. It was a status symbol of 1930s high society.",
-  },
-  {
-    name: "Mercedes-Benz 540K",
-    code: "W29",
-    start: 1936,
-    end: 1940,
-    category: "Coupé & Cabriolet",
-    wiki: "Mercedes-Benz 540K",
-    summary:
-      "The larger-engined evolution of the 500K. The Spezial-Roadster body is one of the most valuable pre-war cars in the world.",
-  },
-  {
-    name: "Mercedes-Benz 170 V",
-    code: "W136",
-    start: 1936,
-    end: 1955,
-    category: "Sedan",
-    wiki: "Mercedes-Benz W136",
-    summary:
-      "The brand's best-selling car before the war. After 1945 it was the model that got Mercedes-Benz production restarted.",
-  },
-  {
-    name: "Mercedes-Benz 260 D",
-    code: "W138",
-    start: 1936,
-    end: 1940,
-    category: "Sedan",
-    wiki: "Mercedes-Benz 260 D",
-    summary:
-      "The world's first series-production diesel passenger car, and the start of the brand's long diesel tradition. It was popular with taxi drivers.",
-  },
-  {
-    name: "Mercedes-Benz G4",
-    code: "W31",
-    start: 1934,
-    end: 1939,
-    category: "SUV & Off-road",
-    wiki: "Mercedes-Benz G4",
-    summary:
-      "A three-axle, six-wheeled off-road touring car built in very small numbers, mostly for parades.",
-  },
-  {
-    name: "Mercedes-Benz W125",
-    code: "W125",
-    start: 1937,
-    end: 1937,
-    category: "Racing",
-    wiki: "Mercedes-Benz W125",
-    summary:
-      "A 646 hp Grand Prix car. Its power output was not beaten in Grand Prix racing until the turbo era of the 1980s.",
-  },
-
   // ── Post-War Revival ──────────────────────────────────────────
   {
     name: "Unimog",
@@ -204,224 +55,26 @@ const raw: Omit<CarModel, "slug">[] = [
     summary:
       "The 'Universal-Motor-Gerät' began as an agricultural machine and became a legendary go-anywhere truck. It is still in production today.",
   },
-  {
-    name: "Mercedes-Benz 300 “Adenauer”",
-    code: "W186",
-    start: 1951,
-    end: 1957,
-    category: "Sedan",
-    wiki: "Mercedes-Benz W186",
-    summary:
-      "Germany's top luxury car of the post-war years, nicknamed after Chancellor Konrad Adenauer, who used several of them.",
-  },
-  {
-    name: "Mercedes-Benz 300 S",
-    code: "W188",
-    start: 1951,
-    end: 1958,
-    category: "Coupé & Cabriolet",
-    wiki: "Mercedes-Benz W188",
-    summary:
-      "A hand-built coupé, cabriolet and roadster based on the 300. It was one of the most expensive cars of its day.",
-  },
-  {
-    name: "Mercedes-Benz “Ponton”",
-    code: "W120 / W180",
-    start: 1953,
-    end: 1962,
-    category: "Sedan",
-    wiki: "Mercedes-Benz Ponton",
-    summary:
-      "The brand's first cars with modern unibody 'pontoon' styling. They set the pattern for the mid-size Mercedes that later became the E-Class.",
-  },
-  {
-    name: "Mercedes-Benz 300 SL “Gullwing”",
-    code: "W198",
-    start: 1954,
-    end: 1963,
-    category: "Sports & Supercar",
-    wiki: "Mercedes-Benz 300 SL",
-    summary:
-      "Its upward-opening doors were needed because of its tubular spaceframe. It was also the first production car with direct fuel injection, and one of the great automotive icons.",
-  },
-  {
-    name: "Mercedes-Benz W196",
-    code: "W196",
-    start: 1954,
-    end: 1955,
-    category: "Racing",
-    wiki: "Mercedes-Benz W196",
-    summary:
-      "Juan Manuel Fangio won two Formula One world championships in the W196, which was offered with both streamlined and open-wheel bodies.",
-  },
-  {
-    name: "Mercedes-Benz 300 SLR",
-    code: "W196 S",
-    start: 1955,
-    end: 1955,
-    category: "Racing",
-    wiki: "Mercedes-Benz 300 SLR",
-    summary:
-      "Stirling Moss won the 1955 Mille Miglia in it with a record that still stands. The 'Uhlenhaut Coupé' version is the most expensive car ever sold at auction.",
-  },
-  {
-    name: "Mercedes-Benz 190 SL",
-    code: "W121",
-    start: 1955,
-    end: 1963,
-    category: "Roadster",
-    wiki: "Mercedes-Benz 190 SL",
-    summary:
-      "The more affordable, elegant sister of the 300 SL. It made open-top Mercedes motoring accessible to more buyers.",
-  },
-  {
-    name: "Mercedes-Benz “Fintail”",
-    code: "W110 / W111 / W112",
-    start: 1959,
-    end: 1968,
-    category: "Sedan",
-    wiki: "Mercedes-Benz W111",
-    summary:
-      "Nicknamed 'Heckflosse' for its tail fins, this was the first car with a safety cell of front and rear crumple zones, invented by Béla Barényi.",
-  },
-  {
-    name: "Mercedes-Benz 600",
-    code: "W100",
-    start: 1963,
-    end: 1981,
-    category: "Sedan",
-    wiki: "Mercedes-Benz 600",
-    summary:
-      "The ultimate limousine of its time, with hydraulic comfort systems and a 6.3-litre V8. It was driven by popes, presidents and rock stars.",
-  },
-  {
-    name: "Mercedes-Benz SL “Pagoda”",
-    code: "W113",
-    start: 1963,
-    end: 1971,
-    category: "Roadster",
-    wiki: "Mercedes-Benz W113",
-    summary:
-      "Named for its concave hardtop roof. The 230/250/280 SL combined elegance with the safety-cell engineering of the Fintail.",
-  },
-  {
-    name: "Mercedes-Benz W108 / W109",
-    code: "W108 / W109",
-    start: 1965,
-    end: 1972,
-    category: "Sedan",
-    wiki: "Mercedes-Benz W108",
-    summary:
-      "The direct ancestor of the S-Class. The 300 SEL 6.3 version put the 600's V8 into a mid-size body and became the first super-saloon.",
-  },
-  {
-    name: "Mercedes-Benz “Stroke 8”",
-    code: "W114 / W115",
-    start: 1968,
-    end: 1976,
-    category: "Sedan",
-    wiki: "Mercedes-Benz W114",
-    summary:
-      "Nearly two million were built. Its famous durability made it a favourite of taxi drivers around the world.",
-  },
-  {
-    name: "Mercedes-Benz C111",
-    code: "C111",
-    start: 1969,
-    end: 1979,
-    category: "Concept",
-    wiki: "Mercedes-Benz C111",
-    summary:
-      "An experimental wedge with gullwing doors, used to test Wankel, diesel and turbo engines. It set several world speed records.",
-  },
 
   // ── Engineered Like No Other ──────────────────────────────────
-  {
-    name: "Mercedes-Benz SL",
-    code: "R107 / C107",
-    start: 1971,
-    end: 1989,
-    category: "Roadster",
-    wiki: "Mercedes-Benz R107 and C107",
-    summary:
-      "In production for 18 years, the R107 SL was a symbol of the 1970s and 1980s and one of the longest-running single car designs ever.",
-  },
-  {
-    name: "Mercedes-Benz S-Class",
-    code: "W116",
-    start: 1972,
-    end: 1980,
-    category: "Sedan",
-    wiki: "Mercedes-Benz W116",
-    summary:
-      "The first car officially called the 'S-Class' and the first production car available with ABS. The 450 SEL 6.9 was its hydropneumatic flagship.",
-  },
-  {
-    name: "Mercedes-Benz W123",
-    code: "W123",
-    start: 1976,
-    end: 1986,
-    category: "Sedan",
-    wiki: "Mercedes-Benz W123",
-    summary:
-      "Built to last almost forever. The W123 made it common to see a Mercedes with a million kilometres on the clock, from German suburbs to African taxi ranks.",
-  },
   {
     name: "Mercedes-Benz G-Class",
     code: "W460 / W463",
     start: 1979,
+    classCode: "G",
     end: null,
     category: "SUV & Off-road",
     wiki: "Mercedes-Benz G-Class",
     summary:
       "Designed as a military vehicle, the boxy 'G-Wagen' became a luxury icon. It is one of the longest-produced vehicles in automotive history and now also comes as the all-electric G 580.",
   },
-  {
-    name: "Mercedes-Benz S-Class",
-    code: "W126",
-    start: 1979,
-    end: 1991,
-    category: "Sedan",
-    wiki: "Mercedes-Benz W126",
-    summary:
-      "The best-selling S-Class ever. It introduced the driver's airbag and is widely thought of as one of the best-engineered cars ever made.",
-  },
-  {
-    name: "Mercedes-Benz 190",
-    code: "W201",
-    start: 1982,
-    end: 1993,
-    category: "Sedan",
-    wiki: "Mercedes-Benz W201",
-    summary:
-      "The 'Baby Benz' was the brand's first compact car and the ancestor of the C-Class. The 2.5-16 Evolution II was a touring-car racing legend.",
-  },
-  {
-    name: "Mercedes-Benz W124",
-    code: "W124",
-    start: 1984,
-    end: 1997,
-    category: "Sedan",
-    wiki: "Mercedes-Benz W124",
-    summary:
-      "The first model to carry the 'E-Class' name. It includes the Porsche-assembled 500 E and is known for being almost indestructible.",
-  },
 
   // ── The Great Expansion ───────────────────────────────────────
-  {
-    name: "Mercedes-Benz SL",
-    code: "R129",
-    start: 1989,
-    end: 2001,
-    category: "Roadster",
-    wiki: "Mercedes-Benz SL-Class (R129)",
-    summary:
-      "It introduced an automatic pop-up roll bar and a power soft top. The SL 73 AMG was one of the rarest versions.",
-  },
   {
     name: "Mercedes-Benz S-Class",
     code: "W140",
     start: 1991,
+    classCode: "S",
     end: 1998,
     category: "Sedan",
     wiki: "Mercedes-Benz S-Class (W140)",
@@ -432,6 +85,7 @@ const raw: Omit<CarModel, "slug">[] = [
     name: "Mercedes-Benz C-Class",
     code: "W202",
     start: 1993,
+    classCode: "C",
     end: 2000,
     category: "Sedan",
     wiki: "Mercedes-Benz C-Class (W202)",
@@ -451,6 +105,7 @@ const raw: Omit<CarModel, "slug">[] = [
     name: "Mercedes-Benz E-Class",
     code: "W210",
     start: 1995,
+    classCode: "E",
     end: 2002,
     category: "Sedan",
     wiki: "Mercedes-Benz E-Class (W210)",
@@ -461,6 +116,7 @@ const raw: Omit<CarModel, "slug">[] = [
     name: "Mercedes-Benz SLK",
     code: "R170",
     start: 1996,
+    classCode: "SLK",
     end: 2004,
     category: "Roadster",
     wiki: "Mercedes-Benz SLK-Class (R170)",
@@ -471,6 +127,7 @@ const raw: Omit<CarModel, "slug">[] = [
     name: "Mercedes-Benz A-Class",
     code: "W168",
     start: 1997,
+    classCode: "A",
     end: 2004,
     category: "Sedan",
     wiki: "Mercedes-Benz A-Class (W168)",
@@ -481,6 +138,7 @@ const raw: Omit<CarModel, "slug">[] = [
     name: "Mercedes-Benz M-Class",
     code: "W163",
     start: 1997,
+    classCode: "M",
     end: 2005,
     category: "SUV & Off-road",
     wiki: "Mercedes-Benz M-Class (W163)",
@@ -491,6 +149,7 @@ const raw: Omit<CarModel, "slug">[] = [
     name: "Mercedes-Benz CLK",
     code: "C208",
     start: 1997,
+    classCode: "CLK",
     end: 2002,
     category: "Coupé & Cabriolet",
     wiki: "Mercedes-Benz CLK-Class",
@@ -510,6 +169,7 @@ const raw: Omit<CarModel, "slug">[] = [
     name: "Mercedes-Benz S-Class",
     code: "W220",
     start: 1998,
+    classCode: "S",
     end: 2005,
     category: "Sedan",
     wiki: "Mercedes-Benz S-Class (W220)",
@@ -529,6 +189,7 @@ const raw: Omit<CarModel, "slug">[] = [
     name: "Mercedes-Benz SLR McLaren",
     code: "C199",
     start: 2003,
+    classCode: "SLR",
     end: 2009,
     category: "Sports & Supercar",
     wiki: "Mercedes-Benz SLR McLaren",
@@ -539,6 +200,7 @@ const raw: Omit<CarModel, "slug">[] = [
     name: "Mercedes-Benz CLS",
     code: "C219",
     start: 2004,
+    classCode: "CLS",
     end: 2010,
     category: "Coupé & Cabriolet",
     wiki: "Mercedes-Benz CLS-Class (C219)",
@@ -549,6 +211,7 @@ const raw: Omit<CarModel, "slug">[] = [
     name: "Mercedes-Benz S-Class",
     code: "W221",
     start: 2005,
+    classCode: "S",
     end: 2013,
     category: "Sedan",
     wiki: "Mercedes-Benz S-Class (W221)",
@@ -559,6 +222,7 @@ const raw: Omit<CarModel, "slug">[] = [
     name: "Mercedes-Benz GL-Class",
     code: "X164",
     start: 2006,
+    classCode: "GL",
     end: 2012,
     category: "SUV & Off-road",
     wiki: "Mercedes-Benz GL-Class",
@@ -569,6 +233,7 @@ const raw: Omit<CarModel, "slug">[] = [
     name: "Mercedes-Benz C-Class",
     code: "W204",
     start: 2007,
+    classCode: "C",
     end: 2014,
     category: "Sedan",
     wiki: "Mercedes-Benz C-Class (W204)",
@@ -579,6 +244,7 @@ const raw: Omit<CarModel, "slug">[] = [
     name: "Mercedes-Benz E-Class",
     code: "W212",
     start: 2009,
+    classCode: "E",
     end: 2016,
     category: "Sedan",
     wiki: "Mercedes-Benz E-Class (W212)",
@@ -591,6 +257,7 @@ const raw: Omit<CarModel, "slug">[] = [
     name: "Mercedes-Benz SLS AMG",
     code: "C197",
     start: 2010,
+    classCode: "SLS",
     end: 2014,
     category: "Sports & Supercar",
     wiki: "Mercedes-Benz SLS AMG",
@@ -600,6 +267,7 @@ const raw: Omit<CarModel, "slug">[] = [
   {
     name: "Mercedes-Benz GLA",
     start: 2013,
+    classCode: "GLA",
     end: null,
     category: "SUV & Off-road",
     wiki: "Mercedes-Benz GLA-Class",
@@ -610,6 +278,7 @@ const raw: Omit<CarModel, "slug">[] = [
     name: "Mercedes-Benz S-Class",
     code: "W222",
     start: 2013,
+    classCode: "S",
     end: 2020,
     category: "Sedan",
     wiki: "Mercedes-Benz S-Class (W222)",
@@ -620,6 +289,7 @@ const raw: Omit<CarModel, "slug">[] = [
     name: "Mercedes-Benz C-Class",
     code: "W205",
     start: 2014,
+    classCode: "C",
     end: 2021,
     category: "Sedan",
     wiki: "Mercedes-Benz C-Class (W205)",
@@ -638,6 +308,7 @@ const raw: Omit<CarModel, "slug">[] = [
   {
     name: "Mercedes-Benz GLC",
     start: 2015,
+    classCode: "GLC",
     end: null,
     category: "SUV & Off-road",
     wiki: "Mercedes-Benz GLC-Class",
@@ -648,6 +319,7 @@ const raw: Omit<CarModel, "slug">[] = [
     name: "Mercedes-Benz E-Class",
     code: "W213",
     start: 2016,
+    classCode: "E",
     end: 2023,
     category: "Sedan",
     wiki: "Mercedes-Benz E-Class (W213)",
@@ -658,6 +330,7 @@ const raw: Omit<CarModel, "slug">[] = [
     name: "Mercedes-Benz A-Class",
     code: "W177",
     start: 2018,
+    classCode: "A",
     end: 2025,
     category: "Sedan",
     wiki: "Mercedes-Benz A-Class (W177)",
@@ -668,6 +341,7 @@ const raw: Omit<CarModel, "slug">[] = [
     name: "Mercedes-Benz EQC",
     code: "N293",
     start: 2019,
+    classCode: "EQC",
     end: 2023,
     category: "Electric",
     wiki: "Mercedes-Benz EQC",
@@ -678,6 +352,7 @@ const raw: Omit<CarModel, "slug">[] = [
     name: "Mercedes-Benz GLS",
     code: "X167",
     start: 2019,
+    classCode: "GLS",
     end: null,
     category: "SUV & Off-road",
     wiki: "Mercedes-Benz GLS-Class",
@@ -698,6 +373,7 @@ const raw: Omit<CarModel, "slug">[] = [
     name: "Mercedes-Benz S-Class",
     code: "W223",
     start: 2020,
+    classCode: "S",
     end: null,
     category: "Sedan",
     wiki: "Mercedes-Benz S-Class (W223)",
@@ -708,6 +384,7 @@ const raw: Omit<CarModel, "slug">[] = [
     name: "Mercedes-Benz EQS",
     code: "V297",
     start: 2021,
+    classCode: "EQS",
     end: null,
     category: "Electric",
     wiki: "Mercedes-Benz EQS",
@@ -718,6 +395,7 @@ const raw: Omit<CarModel, "slug">[] = [
     name: "Mercedes-Benz C-Class",
     code: "W206",
     start: 2021,
+    classCode: "C",
     end: null,
     category: "Sedan",
     wiki: "Mercedes-Benz C-Class (W206)",
@@ -728,6 +406,7 @@ const raw: Omit<CarModel, "slug">[] = [
     name: "Mercedes-Benz SL",
     code: "R232",
     start: 2021,
+    classCode: "SL",
     end: null,
     category: "Roadster",
     wiki: "Mercedes-Benz SL-Class (R232)",
@@ -738,6 +417,7 @@ const raw: Omit<CarModel, "slug">[] = [
     name: "Mercedes-Benz EQE",
     code: "V295",
     start: 2022,
+    classCode: "EQE",
     end: null,
     category: "Electric",
     wiki: "Mercedes-Benz EQE",
@@ -748,6 +428,7 @@ const raw: Omit<CarModel, "slug">[] = [
     name: "Mercedes-Benz EQS SUV",
     code: "X296",
     start: 2022,
+    classCode: "EQS",
     end: null,
     category: "Electric",
     wiki: "Mercedes-Benz EQS SUV",
@@ -776,6 +457,7 @@ const raw: Omit<CarModel, "slug">[] = [
     name: "Mercedes-Benz E-Class",
     code: "W214",
     start: 2023,
+    classCode: "E",
     end: null,
     category: "Sedan",
     wiki: "Mercedes-Benz E-Class (W214)",
@@ -786,6 +468,7 @@ const raw: Omit<CarModel, "slug">[] = [
     name: "Mercedes-Benz CLA",
     code: "C178",
     start: 2025,
+    classCode: "CLA",
     end: null,
     category: "Electric",
     wiki: "Mercedes-Benz CLA (C178)",

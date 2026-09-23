@@ -65,3 +65,24 @@ export const toCard = (m: CatalogEntry): CardEntry => ({
   summary: m.summary,
   image: m.images[0] ?? null,
 });
+
+/** A round in the "Guess the Model" game: a photo and the class letters that are the answer. */
+export type GuessRound = {
+  slug: string;
+  name: string;
+  classCode: string;
+  image: CarImage;
+};
+
+/** Every model sold under a "class letter" name (S, CLA, GLC, …) that has at least one photo. */
+export const GUESSABLE: GuessRound[] = CATALOG.filter(
+  (m): m is CatalogEntry & { classCode: string } => !!m.classCode && m.images.length > 0,
+).map((m) => ({
+  slug: m.slug,
+  name: m.name,
+  classCode: m.classCode,
+  image: m.images[0],
+}));
+
+/** Every distinct class letter answer that appears in the game, for building multiple-choice options. */
+export const CLASS_CODES: string[] = Array.from(new Set(GUESSABLE.map((r) => r.classCode))).sort();

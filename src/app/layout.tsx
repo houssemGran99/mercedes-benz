@@ -48,6 +48,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               <Link href="/timeline" className="rounded-full px-3 py-1.5 hover:bg-surface">
                 Timeline
               </Link>
+              <Link href="/guess" className="rounded-full px-3 py-1.5 hover:bg-surface">
+                Guess the Model
+              </Link>
             </div>
           </nav>
         </header>

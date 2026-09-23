@@ -10,10 +10,6 @@ export const metadata: Metadata = {
 };
 
 const ERA_INTRO: Record<string, string> = {
-  pioneers:
-    "Karl Benz and Gottlieb Daimler independently invent the automobile. Emil Jellinek gives the world the name 'Mercedes'.",
-  "pre-war":
-    "Benz & Cie. and Daimler-Motoren-Gesellschaft merge in 1926. Supercharged grand tourers and the Silver Arrows dominate.",
   "post-war":
     "The company rebuilds from rubble. The Gullwing, the safety cell and the first S-Class forerunners follow.",
   engineering:
