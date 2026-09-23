@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { GuessRound } from "@/lib/catalog";
@@ -25,19 +25,27 @@ function buildOptions(round: GuessRound, allCodes: string[]): string[] {
   return shuffled([round.classCode, ...distractors]);
 }
 
-function buildGame(pool: GuessRound[], allCodes: string[]) {
+type Game = { round: GuessRound; options: string[] }[];
+
+function buildGame(pool: GuessRound[], allCodes: string[]): Game {
   const rounds = shuffled(pool).slice(0, Math.min(ROUNDS_PER_GAME, pool.length));
   return rounds.map((round) => ({ round, options: buildOptions(round, allCodes) }));
 }
 
 export function GuessGame({ pool, allCodes }: { pool: GuessRound[]; allCodes: string[] }) {
-  const [game, setGame] = useState(() => buildGame(pool, allCodes));
+  // Randomised client-side only, after mount — computing it during render would
+  // run once on the server and again on the client, producing different
+  // shuffles and a hydration mismatch.
+  const [game, setGame] = useState<Game | null>(null);
   const [index, setIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [picked, setPicked] = useState<string | null>(null);
 
-  const current = game[index];
-  const done = index >= game.length;
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- randomised game must not run during SSR
+    setGame(buildGame(pool, allCodes));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const restart = () => {
     setGame(buildGame(pool, allCodes));
@@ -47,15 +55,25 @@ export function GuessGame({ pool, allCodes }: { pool: GuessRound[]; allCodes: st
   };
 
   const pick = (option: string) => {
-    if (picked) return;
+    if (!game || picked) return;
     setPicked(option);
-    if (option === current.round.classCode) setScore((s) => s + 1);
+    if (option === game[index].round.classCode) setScore((s) => s + 1);
   };
 
   const next = () => {
     setPicked(null);
     setIndex((i) => i + 1);
   };
+
+  if (!game) {
+    return (
+      <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6">
+        <div className="aspect-[16/10] animate-pulse rounded-2xl bg-line" />
+      </div>
+    );
+  }
+
+  const done = index >= game.length;
 
   if (done) {
     return (
@@ -89,7 +107,7 @@ export function GuessGame({ pool, allCodes }: { pool: GuessRound[]; allCodes: st
     );
   }
 
-  const { round, options } = current;
+  const { round, options } = game[index];
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6">
